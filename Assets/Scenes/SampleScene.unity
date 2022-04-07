@@ -154,7 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 963194227}
-  dist: 2
+  dist: 20
 --- !u!224 &259390482
 RectTransform:
   m_ObjectHideFlags: 0
@@ -188,6 +188,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Container: {fileID: 1963066698}
   PtsControl: {fileID: 3421270913403553674, guid: 4e86222064a8379428135715f855de0f, type: 3}
+  Points: []
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
