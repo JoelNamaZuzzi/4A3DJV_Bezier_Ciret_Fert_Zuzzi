@@ -7,19 +7,30 @@ public class MouseClick : MonoBehaviour
     public float dist=2;
     void Update()
     {
-        RaycastHit Hit;
+        
         if (Input.GetMouseButtonDown(1))
         {
             //Debug.Log(Input.mousePosition);
-            Vector3 fwd = transform.TransformDirection(Vector3.forward);
-            if(!Physics.Raycast(transform.position, fwd, out Hit, 1000, 5))
+            //RaycastHit Hit;
+            Vector3 mousepos = Input.mousePosition;
+            mousepos.z += dist;
+            Vector3 Pos = cam.ScreenToWorldPoint(mousepos);
+            Factory.Instance.SpawnControlPoint(Pos);
+        }
+        else if (Input.GetMouseButtonDown(0))
+        {
+            //Debug.Log("Bite");
+            Ray ray=cam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit Hit;
+            //Vector3 mousepos = Input.mousePosition;
+            //Vector3 fwd = transform.TransformDirection(Vector3.forward);
+            //Vector3 Pos = cam.ScreenToWorldPoint(fwd);
+            //bool HitPts = Physics.Raycast(transform.position, Pos, out Hit, 1000, 6);
+            if (Physics.Raycast(ray, out Hit))
             {
-                Vector3 mousepos = Input.mousePosition;
-                mousepos.z += dist;
-                Vector3 Pos = cam.ScreenToWorldPoint(mousepos);
-                Factory.Instance.SpawnControlPoint(Pos);
+                
+                Debug.Log(Hit.collider.gameObject.name);
             }
-                   
         }
     }
 }

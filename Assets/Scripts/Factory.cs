@@ -69,9 +69,9 @@ public class Factory : MonoBehaviour
                     lnrdr.useWorldSpace = true;
                     lnrdr.SetPosition(0, Points[i].transform.position);
                     lnrdr.SetPosition(1, nextPos);
-
                 }
             }
         }
     }
+    
 }
