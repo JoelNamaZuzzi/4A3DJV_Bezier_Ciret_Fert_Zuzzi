@@ -4,24 +4,24 @@ using UnityEngine;
 
 public class Castel : MonoBehaviour
 {
+    public static Castel Instance;
     public List<Transform> pointDeBase;
     public List<Vector3> pointIntermediaire;
     public int pas = 3;
     
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        Jau();
+        if (Instance == null)
+        {
+            DontDestroyOnLoad(gameObject);
+            Instance = this;
+        }
+        else if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-        
-        
-    }
-
+    
     public void Jau()
     {
         List<Vector3> lastPos = new List<Vector3>();
