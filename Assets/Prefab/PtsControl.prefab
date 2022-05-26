@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 163771873615672755}
   - component: {fileID: 1748090361949886283}
   - component: {fileID: 1119881600292114510}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PtsControl
   m_TagString: Untagged
   m_Icon: {fileID: 0}

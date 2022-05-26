@@ -21,6 +21,16 @@ public class Castel : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    public void ClickPlus()
+    {
+        pas += 1;
+    }
+
+    public void ClickMinus()
+    {
+        pas -= 1;
+    }
     
     public void Jau()
     {

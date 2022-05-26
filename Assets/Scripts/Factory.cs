@@ -12,6 +12,7 @@ public class Factory : MonoBehaviour
     public GameObject PtsJau;
     public List <GameObject> Points=new List<GameObject>();
     public List<Transform> ToJau = new List<Transform>();
+    public GameObject Selected;
 
     void Awake()
     {
@@ -26,6 +27,14 @@ public class Factory : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if ((Input.GetKeyDown(KeyCode.Delete)||Input.GetKeyDown(KeyCode.Backspace))&&(Selected))
+        {
+            Destroy(Selected);
+        }
+    }
+    
     public void SpawnControlPoint(Vector3 pos)
     {
         Debug.Log("Spawn");
@@ -51,6 +60,7 @@ public class Factory : MonoBehaviour
             Points.Add(pts);
         }
         NewLine();
+        ToJau.Clear();
     }
     
     public void NewLine()
@@ -89,5 +99,6 @@ public class Factory : MonoBehaviour
                 }
             }
         }
+        Points.Clear();
     }
 }
