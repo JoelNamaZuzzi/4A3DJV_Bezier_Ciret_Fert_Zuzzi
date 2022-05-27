@@ -32,6 +32,7 @@ public class Factory : MonoBehaviour
         if ((Input.GetKeyDown(KeyCode.Delete)||Input.GetKeyDown(KeyCode.Backspace))&&(Selected))
         {
             Destroy(Selected);
+            Selected = null;
         }
     }
     

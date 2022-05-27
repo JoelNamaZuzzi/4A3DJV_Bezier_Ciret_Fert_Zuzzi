@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,6 +23,19 @@ public class Castel : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Plus))
+        {
+            pas += 1;
+        }
+        
+        else if (Input.GetKeyDown(KeyCode.Minus))
+        {
+            pas -= 1;
+        }
+    }
+
     public void ClickPlus()
     {
         pas += 1;
@@ -37,6 +51,7 @@ public class Castel : MonoBehaviour
         List<Vector3> lastPos = new List<Vector3>();
         List<Vector3> tempPos = new List<Vector3>();
         pointIntermediaire.Clear();
+        
         float k = 1f / pas;
 
         for (int x = 0; x <= pas; x ++)
