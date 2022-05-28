@@ -19,6 +19,7 @@ public class Factory : MonoBehaviour
     public GameObject SelectedPoint;
     public GameObject SelectedBezier;
     public GameObject JauPointHolder;
+    public int CounterBez;
     
     void Awake()
     {
@@ -85,10 +86,13 @@ public class Factory : MonoBehaviour
     public void ClickNewBezier()
     {
         var NewBez = Instantiate(BezierPrefab, new Vector3(0f,0f,0f), Quaternion.identity);
+        NewBez.name = "Bezier"+CounterBez;
+        CounterBez++;
         Beziers.Add(NewBez);
         SelectedBezier = NewBez;
         JauPointHolder = SelectedBezier.transform.Find("PtsJau").gameObject;
         Container = SelectedBezier.transform.Find("PtsControle").gameObject;
+        ContentAdd.Instance.CreateBez(NewBez);
     }
     
     public void DestroyCurve()
