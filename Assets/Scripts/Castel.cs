@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Castel : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class Castel : MonoBehaviour
     public List<Transform> pointDeBase;
     public List<Vector3> pointIntermediaire;
     public int pas = 3;
+    public Text pastxt; 
     
     void Awake()
     {
@@ -22,7 +24,6 @@ public class Castel : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Plus))
@@ -34,6 +35,8 @@ public class Castel : MonoBehaviour
         {
             pas -= 1;
         }
+
+        pastxt.text = pas.ToString();
     }
 
     public void ClickPlus()
