@@ -47,6 +47,7 @@ public class MouseClick : MonoBehaviour
             else if (!Physics.Raycast(transform.position,Pos, out Hit, 1000) && Move && Factory.Instance.Selected)
             {
                 Factory.Instance.Selected.transform.position = Pos;
+                Factory.Instance.ClickGenerate();
             }
             else
             {
