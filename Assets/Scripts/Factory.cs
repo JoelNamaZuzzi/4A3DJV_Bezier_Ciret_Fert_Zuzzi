@@ -7,12 +7,16 @@ public class Factory : MonoBehaviour
 {
 
     public static Factory Instance;
+    //Container = PtsControl Holder for a single Bez
     public GameObject Container;
     public GameObject PtsControl;
     public GameObject PtsJau;
+    public GameObject BezierPrefab;
     public List <GameObject> Points=new List<GameObject>();
+    public List<GameObject> Beziers = new List<GameObject>();
     public List<Transform> ToJau = new List<Transform>();
-    public GameObject Selected;
+    public GameObject SelectedPoint;
+    public GameObject SelectedBezier;
     public GameObject JauPointHolder;
     
     void Awake()
@@ -30,11 +34,19 @@ public class Factory : MonoBehaviour
 
     void Update()
     {
-        if ((Input.GetKeyDown(KeyCode.Delete)||Input.GetKeyDown(KeyCode.Backspace))&&(Selected))
+        if ((Input.GetKeyDown(KeyCode.Delete)||Input.GetKeyDown(KeyCode.Backspace))&&(SelectedPoint))
         {
-            Destroy(Selected);
-            Selected = null;
+            Destroy(SelectedPoint);
+            SelectedPoint = null;
         }
+    }
+
+    public void ChangeBezier()
+    {
+        Container = SelectedPoint.transform.parent.gameObject;
+        SelectedBezier = Container.transform.parent.gameObject;
+        JauPointHolder = SelectedBezier.transform.Find("PtsJau").gameObject;
+
     }
     
     public void SpawnControlPoint(Vector3 pos)
@@ -42,6 +54,7 @@ public class Factory : MonoBehaviour
         Debug.Log("Spawn");
         var pts = Instantiate(PtsControl, new Vector3(pos.x,pos.y, pos.z),Quaternion.identity);
         pts.transform.parent = Container.transform;
+        
         //Points.Add(pts);
         //NewLine();
     }
@@ -68,6 +81,15 @@ public class Factory : MonoBehaviour
         ToJau.Clear();
     }
 
+    public void ClickNewBezier()
+    {
+        var NewBez = Instantiate(BezierPrefab, new Vector3(0f,0f,0f), Quaternion.identity);
+        Beziers.Add(NewBez);
+        SelectedBezier = NewBez;
+        JauPointHolder = SelectedBezier.transform.Find("PtsJau").gameObject;
+        Container = SelectedBezier.transform.Find("PtsControle").gameObject;
+    }
+    
     public void DestroyCurve()
     {
         foreach (Transform JauPts in JauPointHolder.transform)
