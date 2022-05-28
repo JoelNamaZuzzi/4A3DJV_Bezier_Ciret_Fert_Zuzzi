@@ -9,11 +9,12 @@ public class MouseClick : MonoBehaviour
     public Camera cam;
     public float dist=2;
     public GameObject Container;
+    public bool Move;
     
     [SerializeField] private InputField inputField;
     void Update()
     {
-        Debug.LogWarningFormat(inputField.text);
+        //Debug.LogWarningFormat(inputField.text);
         if (Input.GetMouseButtonDown(1))
         {
             for (int i = 1; i <= int.Parse(inputField.text); i++)
@@ -43,11 +44,20 @@ public class MouseClick : MonoBehaviour
                 Factory.Instance.Selected = Hit.transform.gameObject;
                 //Debug.Log(Hit.transform);
             }
+            else if (!Physics.Raycast(transform.position,Pos, out Hit, 1000) && Move && Factory.Instance.Selected)
+            {
+                Factory.Instance.Selected.transform.position = Pos;
+            }
             else
             {
                 Factory.Instance.Selected = null;
             }
         }
+    }
+
+    public void ClickMove()
+    {
+        Move = !Move;
     }
 
     public void CreatePolygone()
@@ -62,7 +72,6 @@ public class MouseClick : MonoBehaviour
                 {
                     Vector3 nextPos; 
                     nextPos = Container.transform.GetChild(i + 1).gameObject.transform.position;
-
 
                     LineRenderer lnrdr = Container.transform.GetChild(i).gameObject.AddComponent<LineRenderer>();
                     lnrdr.startColor = Color.green;
