@@ -13,7 +13,8 @@ public class Factory : MonoBehaviour
     public List <GameObject> Points=new List<GameObject>();
     public List<Transform> ToJau = new List<Transform>();
     public GameObject Selected;
-
+    public GameObject JauPointHolder;
+    
     void Awake()
     {
         if (Instance == null)
@@ -47,6 +48,7 @@ public class Factory : MonoBehaviour
 
     public void ClickGenerate()
     {
+        DestroyCurve();
         foreach (Transform child in Container.transform)
         {
             ToJau.Add(child.transform);
@@ -57,11 +59,21 @@ public class Factory : MonoBehaviour
 
         foreach (Vector3 pos in Castel.Instance.pointIntermediaire)
         {
-            var pts = Instantiate(PtsJau, pos, Quaternion.identity);
+            GameObject pts = Instantiate(PtsJau, pos, Quaternion.identity);
+            pts.transform.parent = JauPointHolder.transform;
             Points.Add(pts);
         }
+        
         NewLine();
         ToJau.Clear();
+    }
+
+    public void DestroyCurve()
+    {
+        foreach (Transform JauPts in JauPointHolder.transform)
+        {
+            Destroy(JauPts.transform.gameObject);
+        }
     }
     
     public void NewLine()
