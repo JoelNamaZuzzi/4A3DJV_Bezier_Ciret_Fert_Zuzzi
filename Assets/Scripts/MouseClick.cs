@@ -10,10 +10,16 @@ public class MouseClick : MonoBehaviour
     public float dist=2;
     public GameObject Container;
     public bool Move;
-    
+
+    public Color polygoneColor;
+
     [SerializeField] private InputField inputField;
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Move = false;
+        }
         //Debug.LogWarningFormat(inputField.text);
         if (Input.GetMouseButtonDown(1))
         {
@@ -87,6 +93,9 @@ public class MouseClick : MonoBehaviour
     
     public void CreatePolygone()
     {
+        Color c1 = Color.white;
+        Color c2 = new Color(1, 1, 1, 0);
+
         Container = Factory.Instance.Container;
         
         if (Container.transform.childCount > 1)
@@ -101,8 +110,10 @@ public class MouseClick : MonoBehaviour
                     nextPos = Container.transform.GetChild(i + 1).gameObject.transform.position;
 
                     LineRenderer lnrdr = Container.transform.GetChild(i).gameObject.AddComponent<LineRenderer>();
-                    lnrdr.startColor = Color.green;
-                    lnrdr.endColor = Color.green;
+                    lnrdr.material = new Material(Shader.Find("Sprites/Default"));
+                    lnrdr.SetColors(c1, c2);
+                    lnrdr.startColor = polygoneColor;
+                    lnrdr.endColor = polygoneColor;
                     lnrdr.startWidth = 0.1f;
                     lnrdr.endWidth = 0.1f;
                     lnrdr.positionCount = 2;

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class Factory : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class Factory : MonoBehaviour
     public GameObject JauPointHolder;
     public int CounterBez;
     public GameObject Selectedbtn;
-    
+
     void Awake()
     {
         if (Instance == null)
@@ -34,7 +35,6 @@ public class Factory : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
     void Update()
     {
         if ((Input.GetKeyDown(KeyCode.Delete)||Input.GetKeyDown(KeyCode.Backspace))&&(SelectedPoint))
@@ -94,6 +94,14 @@ public class Factory : MonoBehaviour
         JauPointHolder = SelectedBezier.transform.Find("PtsJau").gameObject;
         Container = SelectedBezier.transform.Find("PtsControle").gameObject;
         ContentAdd.Instance.CreateBez(NewBez);
+        
+        float r = Random.Range(0f, 1f);
+        float g = Random.Range(0f, 1f);
+        float b = Random.Range(0f, 1f);
+        
+        Color color = new Color(r, g, b, 1);
+
+        GameObject.Find("Manager").GetComponent<MouseClick>().polygoneColor = color;
     }
 
     public void ClickDestroyBezButton()
@@ -119,6 +127,8 @@ public class Factory : MonoBehaviour
     
     public void NewLine()
     {
+        Color c1 = Color.white;
+        Color c2 = new Color(1, 1, 1, 0);
         if (Points.Count >= 2)
         {
             for (int i = 0; i<Points.Count-1; i++)
@@ -141,6 +151,8 @@ public class Factory : MonoBehaviour
                         nextPos = Points[i + 1].transform.position;
                     }
                     LineRenderer lnrdr = Points[i].AddComponent<LineRenderer>();
+                    lnrdr.material = new Material(Shader.Find("Sprites/Default"));
+                    lnrdr.SetColors(c1, c2);
                     lnrdr.startColor = Color.blue;
                     lnrdr.endColor = Color.blue;
                     lnrdr.startWidth = 0.1f;

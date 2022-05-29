@@ -26,6 +26,10 @@ public class Castel : MonoBehaviour
     }
     void Update()
     {
+        if (pas < 2)
+        {
+            pas = 2;
+        }
         if (Input.GetKeyDown(KeyCode.Plus))
         {
             pas += 1;
