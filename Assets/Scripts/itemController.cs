@@ -17,5 +17,6 @@ public class itemController : MonoBehaviour
         Factory.Instance.SelectedBezier = Bezier;
         Factory.Instance.Container = Bezier.transform.Find("PtsControle").gameObject;
         Factory.Instance.JauPointHolder = Bezier.transform.Find("PtsJau").gameObject;
+        Factory.Instance.Selectedbtn = gameObject;
     }
 }
