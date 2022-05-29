@@ -55,6 +55,7 @@ public class Castel : MonoBehaviour
     
     public void Jau()
     {
+        int counter = 0;
         List<Vector3> lastPos = new List<Vector3>();
         List<Vector3> tempPos = new List<Vector3>();
         pointIntermediaire.Clear();
@@ -86,8 +87,6 @@ public class Castel : MonoBehaviour
                 lastPos.AddRange(tempPos);
                 tempPos.Clear();
             }
-                
-            
 
             pointIntermediaire.AddRange(lastPos);
 

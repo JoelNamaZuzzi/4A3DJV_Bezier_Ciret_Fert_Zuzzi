@@ -22,6 +22,7 @@ public class Factory : MonoBehaviour
     public GameObject JauPointHolder;
     public int CounterBez;
     public GameObject Selectedbtn;
+    public GameObject FirstJau;
 
     void Awake()
     {
@@ -79,6 +80,14 @@ public class Factory : MonoBehaviour
             pts.transform.parent = JauPointHolder.transform;
             Points.Add(pts);
         }
+
+        FirstJau = Points[0];
+        SelectedBezier.GetComponent<Bez>().FirstJau = FirstJau;
+        for (int i = 0; i<Points.Count-1; i++)
+        {
+            GameObject pts = Points[i];
+            pts.GetComponent<JauPts>().nextChild = Points[i + 1];
+        }
         
         NewLine();
         ToJau.Clear();
@@ -129,12 +138,31 @@ public class Factory : MonoBehaviour
     {
         Color c1 = Color.white;
         Color c2 = new Color(1, 1, 1, 0);
-        if (Points.Count >= 2)
+        GameObject CurJau = FirstJau;
+        while (CurJau.GetComponent<JauPts>().nextChild)
+        {
+            if (!CurJau.GetComponent<LineRenderer>())
+            {
+                Vector3 nextPos = CurJau.GetComponent<JauPts>().nextChild.transform.position;
+                LineRenderer lnrdr = CurJau.AddComponent<LineRenderer>();
+                lnrdr.material = new Material(Shader.Find("Sprites/Default"));
+                lnrdr.SetColors(c1, c2);
+                lnrdr.startColor = Color.blue;
+                lnrdr.endColor = Color.blue;
+                lnrdr.startWidth = 0.1f;
+                lnrdr.endWidth = 0.1f;
+                lnrdr.positionCount = 2;
+                lnrdr.useWorldSpace = true;
+                lnrdr.SetPosition(0, CurJau.transform.position);
+                lnrdr.SetPosition(1, nextPos);
+                CurJau = CurJau.GetComponent<JauPts>().nextChild;
+            }
+        }
+        /*if (Points.Count >= 2)
         {
             for (int i = 0; i<Points.Count-1; i++)
             {
-                //Debug.Log(Points[i]);
-                //Debug.Log(i);
+                
                 if (!Points[i].GetComponent<LineRenderer>())
                 {
                     Vector3 nextPos;
@@ -164,7 +192,7 @@ public class Factory : MonoBehaviour
 
                 }
             }
-        }
+        }*/
         Points.Clear();
     }
 }
