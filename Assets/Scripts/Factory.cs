@@ -195,4 +195,95 @@ public class Factory : MonoBehaviour
         }*/
         Points.Clear();
     }
+
+    public void GenerateMesh()
+    {
+        if (SelectedBezier && FirstJau)
+        {
+
+            float max_h = -100000;
+            float min_h = 100000;
+            float max_w = -100000;
+            float min_w = 100000;
+            float z = FirstJau.transform.position.z;
+            GameObject MeshHolder = SelectedBezier.transform.Find("Mesh").gameObject;
+            GameObject CurJau = FirstJau;
+
+            while (CurJau)
+            {
+                if (CurJau.transform.position.x > max_w)
+                {
+                    max_w = CurJau.transform.position.x;
+                }
+
+                if (CurJau.transform.position.x < min_w)
+                {
+                    min_w = CurJau.transform.position.x;
+                }
+
+                if (CurJau.transform.position.y > max_h)
+                {
+                    max_h = CurJau.transform.position.y;
+                }
+
+                if (CurJau.transform.position.y < min_h)
+                {
+                    min_h = CurJau.transform.position.y;
+                }
+
+                CurJau = CurJau.GetComponent<JauPts>().nextChild;
+            }
+
+            Debug.Log("max w: " + max_w + " min w: " + min_w + " max h: " + max_h + " min h: " + min_h);
+
+            MeshRenderer meshrdr = MeshHolder.AddComponent<MeshRenderer>();
+            meshrdr.sharedMaterial = new Material(Shader.Find("Standard"));
+            MeshFilter meshFilter = MeshHolder.AddComponent<MeshFilter>();
+
+            Mesh mesh = new Mesh();
+
+            Vector3[] vertices = new Vector3[4]
+            {
+                new Vector3(min_w, min_h, z),
+                new Vector3(max_w, min_h, z),
+                new Vector3(min_w, max_h, z),
+                new Vector3(max_w, max_h, z)
+            };
+
+            mesh.vertices = vertices;
+
+            int[] tris = new int[6]
+            {
+                // lower left triangle
+                0, 2, 1,
+                // upper right triangle
+                2, 3, 1
+            };
+            mesh.triangles = tris;
+
+            Vector3[] normals = new Vector3[4]
+            {
+                -Vector3.forward,
+                -Vector3.forward,
+                -Vector3.forward,
+                -Vector3.forward
+            };
+            mesh.normals = normals;
+
+            Vector2[] uv = new Vector2[4]
+            {
+                new Vector2(0, 0),
+                new Vector2(1, 0),
+                new Vector2(0, 1),
+                new Vector2(1, 1)
+            };
+            mesh.uv = uv;
+
+            meshFilter.mesh = mesh;
+        }
+        else
+        {
+            Debug.Log("Select Bezier with Generated curve");
+        }
+    }
 }
