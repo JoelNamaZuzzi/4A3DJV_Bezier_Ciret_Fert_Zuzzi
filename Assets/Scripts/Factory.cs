@@ -43,6 +43,147 @@ public class Factory : MonoBehaviour
             Destroy(SelectedPoint);
             SelectedPoint = null;
         }
+
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            foreach (Transform child in Container.transform)
+            {
+                child.position = TranformMatrice.Translate(child.position, new Vector3(0,0.1f,0));
+            }
+            
+            GetComponent<MouseClick>().ReUpdatePolygone();
+            ClickGenerate();
+        }
+        
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            foreach (Transform child in Container.transform)
+            {
+                child.position = TranformMatrice.Translate(child.position, new Vector3(-0.1f,0,0));
+            }
+            
+            GetComponent<MouseClick>().ReUpdatePolygone();
+            ClickGenerate();
+        }
+        
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            foreach (Transform child in Container.transform)
+            {
+                child.position = TranformMatrice.Translate(child.position, new Vector3(0,-0.1f,0));
+            }
+            
+            GetComponent<MouseClick>().ReUpdatePolygone();
+            ClickGenerate();
+        }
+        
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            foreach (Transform child in Container.transform)
+            {
+                child.position = TranformMatrice.Translate(child.position, new Vector3(0.1f,0,0));
+            }
+            
+            GetComponent<MouseClick>().ReUpdatePolygone();
+            ClickGenerate();
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.Keypad8))
+        {
+
+            foreach (Transform child in Container.transform)
+            {
+                child.position = TranformMatrice.RotateX(child.position, 1);
+            }
+            
+            GetComponent<MouseClick>().ReUpdatePolygone();
+            ClickGenerate();
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Keypad2))
+        {
+
+            foreach (Transform child in Container.transform)
+            {
+                child.position = TranformMatrice.RotateXInvercer(child.position, 1);
+            }
+            
+            GetComponent<MouseClick>().ReUpdatePolygone();
+            ClickGenerate();
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Keypad4))
+        {
+
+            foreach (Transform child in Container.transform)
+            {
+                child.position = TranformMatrice.RotateY(child.position, 1);
+            }
+            
+            GetComponent<MouseClick>().ReUpdatePolygone();
+            ClickGenerate();
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Keypad6))
+        {
+
+            foreach (Transform child in Container.transform)
+            {
+                child.position = TranformMatrice.RotateYInvercer(child.position, 1);
+            }
+            
+            GetComponent<MouseClick>().ReUpdatePolygone();
+            ClickGenerate();
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Keypad9))
+        {
+
+            foreach (Transform child in Container.transform)
+            {
+                child.position = TranformMatrice.RotateZ(child.position, 1);
+            }
+            
+            GetComponent<MouseClick>().ReUpdatePolygone();
+            ClickGenerate();
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Keypad3))
+        {
+
+            foreach (Transform child in Container.transform)
+            {
+                child.position = TranformMatrice.RotateZInvercer(child.position, 1);
+            }
+            
+            GetComponent<MouseClick>().ReUpdatePolygone();
+            ClickGenerate();
+        }
+
+        if (Input.GetKeyDown(KeyCode.KeypadPlus))
+        {
+            foreach (Transform child in Container.transform)
+            {
+                child.position = TranformMatrice.Scale(child.position, 0.2f);
+            }
+            
+            GetComponent<MouseClick>().ReUpdatePolygone();
+            ClickGenerate();
+        }
+        
+        if (Input.GetKeyDown(KeyCode.KeypadMinus))
+        {
+            foreach (Transform child in Container.transform)
+            {
+                child.position = TranformMatrice.ScaleInverser(child.position, 0.2f);
+            }
+            
+            GetComponent<MouseClick>().ReUpdatePolygone();
+            ClickGenerate();
+        }
+
+
     }
 
     public void ChangeBezier()
