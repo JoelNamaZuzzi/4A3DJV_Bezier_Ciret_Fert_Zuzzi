@@ -376,10 +376,17 @@ public class Factory : MonoBehaviour
             }
 
             Debug.Log("max w: " + max_w + " min w: " + min_w + " max h: " + max_h + " min h: " + min_h);
-
-            MeshRenderer meshrdr = MeshHolder.AddComponent<MeshRenderer>();
-            meshrdr.sharedMaterial = new Material(Shader.Find("Standard"));
-            MeshFilter meshFilter = MeshHolder.AddComponent<MeshFilter>();
+            MeshFilter meshFilter;
+            if (!MeshHolder.GetComponent<MeshRenderer>())
+            {
+                MeshRenderer meshrdr = MeshHolder.AddComponent<MeshRenderer>();
+                meshrdr.sharedMaterial = new Material(Shader.Find("Standard"));
+                meshFilter = MeshHolder.AddComponent<MeshFilter>();
+            }
+            else
+            {
+                meshFilter = MeshHolder.GetComponent<MeshFilter>();
+            }
 
             Mesh mesh = new Mesh();
 
@@ -427,4 +434,6 @@ public class Factory : MonoBehaviour
             Debug.Log("Select Bezier with Generated curve");
         }
     }
+
+    
 }
