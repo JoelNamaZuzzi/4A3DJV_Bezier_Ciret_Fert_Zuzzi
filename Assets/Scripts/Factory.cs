@@ -549,9 +549,13 @@ public class Factory : MonoBehaviour
 
             GameObject firstPointinBezier2 = SelectedForRaccordC0[1].transform.Find("PtsControle").GetChild(0).gameObject; ;
 
-            firstPointinBezier2.transform.position = lastPointinBezier1.transform.position;
-            //SpawnControlPoint(lastPointinBezier1.transform.position, lastPointinBezier1.GetComponent<UselessScript>().importance);
+            //firstPointinBezier2.transform.position = lastPointinBezier1.transform.position;
+            SpawnControlPoint(lastPointinBezier1.transform.position, lastPointinBezier1.GetComponent<UselessScript>().importance);
 
+            int nbPointinBezier2 = SelectedForRaccordC0[1].transform.Find("PtsControle").childCount;
+            GameObject lastPointinBezier2 = SelectedForRaccordC0[1].transform.Find("PtsControle").GetChild(nbPointinBezier2 - 1).gameObject;
+
+            lastPointinBezier2.transform.SetSiblingIndex(0);
 
             LineRenderer lnrdr = lastPointinBezier1.AddComponent<LineRenderer>();
             lnrdr.material = new Material(Shader.Find("Sprites/Default"));
