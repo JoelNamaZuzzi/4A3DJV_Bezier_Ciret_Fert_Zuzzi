@@ -491,13 +491,13 @@ public class Factory : MonoBehaviour
             
             GameObject StartPTS = lowestX(PtsToHull);
             List<GameObject> PtsReturn = new List<GameObject>();
-            PtsReturn.Add(StartPTS);
             GameObject CurPTS = StartPTS;
             int C = 1;
             while (true)
             {
                 //Debug.Log("while");
                 //PtsReturn.Add(CurPTS);
+                PtsReturn.Add(CurPTS);
                 GameObject NextTarget = PtsToHull[C];
                 
                 //Debug.Log(PtsToHull.Count);
@@ -514,7 +514,6 @@ public class Factory : MonoBehaviour
                         CurPTS = PtsToHull[i];
                     }
                 }
-                PtsReturn.Add(CurPTS);
                 C++;
                 if (CurPTS == PtsReturn[0])
                 {
