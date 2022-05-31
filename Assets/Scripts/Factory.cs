@@ -499,17 +499,17 @@ public class Factory : MonoBehaviour
                 GameObject NextTarget = PtsToHull[0];
                 
                 //Debug.Log(PtsToHull.Count);
-                for (int i =0; i<PtsToHull.Count; i++)
+                for (int i =1; i<PtsToHull.Count; i++)
                 {
                     
-                    if ((CounterClock(CurPTS.transform.position, NextTarget.transform.position,
-                            PtsToHull[i].transform.position) > 0f))
+                    if (CounterClock(CurPTS.transform.position, NextTarget.transform.position,
+                            PtsToHull[i].transform.position) > 0f)
                     {
-                        CurPTS = PtsToHull[i];
+                        NextTarget = PtsToHull[i];
                     }
                 }
                 PtsReturn.Add(CurPTS);
-                if (CurPTS == PtsReturn[0])
+                if (NextTarget == PtsReturn[0])
                 {
                     Debug.Log("Debug");
                     break;
