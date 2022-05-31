@@ -7,6 +7,7 @@ public class itemController : MonoBehaviour
 {
     public GameObject Bezier;
     public Text txt;
+    public bool Check = false;
 
     public void SetText()
     {
@@ -19,5 +20,18 @@ public class itemController : MonoBehaviour
         Factory.Instance.JauPointHolder = Bezier.transform.Find("PtsJau").gameObject;
         Factory.Instance.Selectedbtn = gameObject;
         Factory.Instance.FirstJau = Bezier.GetComponent<Bez>().FirstJau;
+    }
+
+    public void OnCheckBox()
+    {
+        Check = !Check;
+        if(Check == true)
+        {
+            Factory.Instance.SelectedForRaccordC0.Add(Bezier);
+        }
+        if (Check == false)
+        {
+            Factory.Instance.SelectedForRaccordC0.Remove(Bezier);
+        }
     }
 }
