@@ -89,7 +89,7 @@ public class Factory : MonoBehaviour
         }
 
 
-        if (Input.GetKeyDown(KeyCode.Keypad8))
+        if (Input.GetKey(KeyCode.Keypad8))
         {
 
             float bariX = 0;
@@ -116,7 +116,7 @@ public class Factory : MonoBehaviour
             foreach (Transform child in Container.transform)
             {
                 child.position = new Vector3(child.position.x-bariX,child.position.y-bariY,child.position.z-bariZ); 
-                child.position = TranformMatrice.RotateX(child.position, 1);
+                child.position = TranformMatrice.RotateX(child.position, 10*Mathf.Deg2Rad);
                 child.position = new Vector3(child.position.x+bariX,child.position.y+bariY,child.position.z+bariZ);
             }
             
@@ -124,7 +124,7 @@ public class Factory : MonoBehaviour
             ClickGenerate();
         }
         
-        if (Input.GetKeyDown(KeyCode.Keypad2))
+        if (Input.GetKey(KeyCode.Keypad2))
         {
             float bariX = 0;
             float bariY = 0;
@@ -149,7 +149,7 @@ public class Factory : MonoBehaviour
             foreach (Transform child in Container.transform)
             {
                 child.position = new Vector3(child.position.x-bariX,child.position.y-bariY,child.position.z-bariZ); 
-                child.position = TranformMatrice.RotateXInvercer(child.position, 1);
+                child.position = TranformMatrice.RotateXInvercer(child.position, 10*Mathf.Deg2Rad);
                 child.position = new Vector3(child.position.x+bariX,child.position.y+bariY,child.position.z+bariZ);
             }
             
@@ -157,7 +157,7 @@ public class Factory : MonoBehaviour
             ClickGenerate();
         }
         
-        if (Input.GetKeyDown(KeyCode.Keypad4))
+        if (Input.GetKey(KeyCode.Keypad4))
         {
             float bariX = 0;
             float bariY = 0;
@@ -182,7 +182,7 @@ public class Factory : MonoBehaviour
             foreach (Transform child in Container.transform)
             {
                 child.position = new Vector3(child.position.x-bariX,child.position.y-bariY,child.position.z-bariZ); 
-                child.position = TranformMatrice.RotateY(child.position, 1);
+                child.position = TranformMatrice.RotateY(child.position, 10*Mathf.Deg2Rad);
                 child.position = new Vector3(child.position.x+bariX,child.position.y+bariY,child.position.z+bariZ);
             }
             
@@ -190,7 +190,7 @@ public class Factory : MonoBehaviour
             ClickGenerate();
         }
         
-        if (Input.GetKeyDown(KeyCode.Keypad6))
+        if (Input.GetKey(KeyCode.Keypad6))
         {
             float bariX = 0;
             float bariY = 0;
@@ -215,7 +215,7 @@ public class Factory : MonoBehaviour
             foreach (Transform child in Container.transform)
             {
                 child.position = new Vector3(child.position.x-bariX,child.position.y-bariY,child.position.z-bariZ); 
-                child.position = TranformMatrice.RotateYInvercer(child.position, 1);
+                child.position = TranformMatrice.RotateYInvercer(child.position, 10*Mathf.Deg2Rad);
                 child.position = new Vector3(child.position.x+bariX,child.position.y+bariY,child.position.z+bariZ);
             }
             
@@ -223,7 +223,7 @@ public class Factory : MonoBehaviour
             ClickGenerate();
         }
         
-        if (Input.GetKeyDown(KeyCode.Keypad9))
+        if (Input.GetKey(KeyCode.Keypad9))
         {
 
             float bariX = 0;
@@ -249,7 +249,7 @@ public class Factory : MonoBehaviour
             foreach (Transform child in Container.transform)
             {
                 child.position = new Vector3(child.position.x-bariX,child.position.y-bariY,child.position.z-bariZ); 
-                child.position = TranformMatrice.RotateZ(child.position, 1);
+                child.position = TranformMatrice.RotateZ(child.position, 10*Mathf.Deg2Rad);
                 child.position = new Vector3(child.position.x+bariX,child.position.y+bariY,child.position.z+bariZ);
             }
             
@@ -257,7 +257,7 @@ public class Factory : MonoBehaviour
             ClickGenerate();
         }
         
-        if (Input.GetKeyDown(KeyCode.Keypad3))
+        if (Input.GetKey(KeyCode.Keypad3))
         {
             
             float bariX = 0;
@@ -283,7 +283,7 @@ public class Factory : MonoBehaviour
             foreach (Transform child in Container.transform)
             {
                 child.position = new Vector3(child.position.x-bariX,child.position.y-bariY,child.position.z-bariZ); 
-                child.position = TranformMatrice.RotateZInvercer(child.position, 1);
+                child.position = TranformMatrice.RotateZInvercer(child.position, 10*Mathf.Deg2Rad);
                 child.position = new Vector3(child.position.x+bariX,child.position.y+bariY,child.position.z+bariZ);
             }
             
