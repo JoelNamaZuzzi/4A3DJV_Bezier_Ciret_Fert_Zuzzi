@@ -90,72 +90,202 @@ public class Factory : MonoBehaviour
         }
 
 
-        if (Input.GetKeyDown(KeyCode.Keypad8))
+        if (Input.GetKey(KeyCode.Keypad8))
         {
+
+            float bariX = 0;
+            float bariY = 0;
+            float bariZ = 0;
+            float count = 0;
 
             foreach (Transform child in Container.transform)
             {
-                child.position = TranformMatrice.RotateX(child.position, 1);
+                bariX += child.position.x;
+                bariY += child.position.y;
+                bariZ += child.position.z;
+                count += 1;
+            }
+
+            if (count != 0)
+            {
+                bariX = 1/count * bariX; 
+                bariY = 1/count * bariY;
+                bariZ = 1/count * bariZ; 
+            }
+            
+            
+            foreach (Transform child in Container.transform)
+            {
+                child.position = new Vector3(child.position.x-bariX,child.position.y-bariY,child.position.z-bariZ); 
+                child.position = TranformMatrice.RotateX(child.position, 10*Mathf.Deg2Rad);
+                child.position = new Vector3(child.position.x+bariX,child.position.y+bariY,child.position.z+bariZ);
             }
             
             GetComponent<MouseClick>().ReUpdatePolygone();
             ClickGenerate();
         }
         
-        if (Input.GetKeyDown(KeyCode.Keypad2))
+        if (Input.GetKey(KeyCode.Keypad2))
         {
+            float bariX = 0;
+            float bariY = 0;
+            float bariZ = 0;
+            float count = 0;
 
             foreach (Transform child in Container.transform)
             {
-                child.position = TranformMatrice.RotateXInvercer(child.position, 1);
+                bariX += child.position.x;
+                bariY += child.position.y;
+                bariZ += child.position.z;
+                count += 1;
+            }
+
+            if (count != 0)
+            {
+                bariX = 1/count * bariX; 
+                bariY = 1/count * bariY;
+                bariZ = 1/count * bariZ; 
+            }
+
+            foreach (Transform child in Container.transform)
+            {
+                child.position = new Vector3(child.position.x-bariX,child.position.y-bariY,child.position.z-bariZ); 
+                child.position = TranformMatrice.RotateXInvercer(child.position, 10*Mathf.Deg2Rad);
+                child.position = new Vector3(child.position.x+bariX,child.position.y+bariY,child.position.z+bariZ);
             }
             
             GetComponent<MouseClick>().ReUpdatePolygone();
             ClickGenerate();
         }
         
-        if (Input.GetKeyDown(KeyCode.Keypad4))
+        if (Input.GetKey(KeyCode.Keypad4))
         {
+            float bariX = 0;
+            float bariY = 0;
+            float bariZ = 0;
+            float count = 0;
 
             foreach (Transform child in Container.transform)
             {
-                child.position = TranformMatrice.RotateY(child.position, 1);
+                bariX += child.position.x;
+                bariY += child.position.y;
+                bariZ += child.position.z;
+                count += 1;
+            }
+
+            if (count != 0)
+            {
+                bariX = 1/count * bariX; 
+                bariY = 1/count * bariY;
+                bariZ = 1/count * bariZ; 
+            }
+
+            foreach (Transform child in Container.transform)
+            {
+                child.position = new Vector3(child.position.x-bariX,child.position.y-bariY,child.position.z-bariZ); 
+                child.position = TranformMatrice.RotateY(child.position, 10*Mathf.Deg2Rad);
+                child.position = new Vector3(child.position.x+bariX,child.position.y+bariY,child.position.z+bariZ);
             }
             
             GetComponent<MouseClick>().ReUpdatePolygone();
             ClickGenerate();
         }
         
-        if (Input.GetKeyDown(KeyCode.Keypad6))
+        if (Input.GetKey(KeyCode.Keypad6))
         {
+            float bariX = 0;
+            float bariY = 0;
+            float bariZ = 0;
+            float count = 0;
 
             foreach (Transform child in Container.transform)
             {
-                child.position = TranformMatrice.RotateYInvercer(child.position, 1);
+                bariX += child.position.x;
+                bariY += child.position.y;
+                bariZ += child.position.z;
+                count += 1;
+            }
+
+            if (count != 0)
+            {
+                bariX = 1/count * bariX; 
+                bariY = 1/count * bariY;
+                bariZ = 1/count * bariZ; 
+            }
+
+            foreach (Transform child in Container.transform)
+            {
+                child.position = new Vector3(child.position.x-bariX,child.position.y-bariY,child.position.z-bariZ); 
+                child.position = TranformMatrice.RotateYInvercer(child.position, 10*Mathf.Deg2Rad);
+                child.position = new Vector3(child.position.x+bariX,child.position.y+bariY,child.position.z+bariZ);
             }
             
             GetComponent<MouseClick>().ReUpdatePolygone();
             ClickGenerate();
         }
         
-        if (Input.GetKeyDown(KeyCode.Keypad9))
+        if (Input.GetKey(KeyCode.Keypad9))
         {
+
+            float bariX = 0;
+            float bariY = 0;
+            float bariZ = 0;
+            float count = 0;
 
             foreach (Transform child in Container.transform)
             {
-                child.position = TranformMatrice.RotateZ(child.position, 1);
+                bariX += child.position.x;
+                bariY += child.position.y;
+                bariZ += child.position.z;
+                count += 1;
+            }
+
+            if (count != 0)
+            {
+                bariX = 1/count * bariX; 
+                bariY = 1/count * bariY;
+                bariZ = 1/count * bariZ; 
+            }
+            
+            foreach (Transform child in Container.transform)
+            {
+                child.position = new Vector3(child.position.x-bariX,child.position.y-bariY,child.position.z-bariZ); 
+                child.position = TranformMatrice.RotateZ(child.position, 10*Mathf.Deg2Rad);
+                child.position = new Vector3(child.position.x+bariX,child.position.y+bariY,child.position.z+bariZ);
             }
             
             GetComponent<MouseClick>().ReUpdatePolygone();
             ClickGenerate();
         }
         
-        if (Input.GetKeyDown(KeyCode.Keypad3))
+        if (Input.GetKey(KeyCode.Keypad3))
         {
+            
+            float bariX = 0;
+            float bariY = 0;
+            float bariZ = 0;
+            float count = 0;
 
             foreach (Transform child in Container.transform)
             {
-                child.position = TranformMatrice.RotateZInvercer(child.position, 1);
+                bariX += child.position.x;
+                bariY += child.position.y;
+                bariZ += child.position.z;
+                count += 1;
+            }
+
+            if (count != 0)
+            {
+                bariX = 1/count * bariX; 
+                bariY = 1/count * bariY;
+                bariZ = 1/count * bariZ; 
+            }
+
+            foreach (Transform child in Container.transform)
+            {
+                child.position = new Vector3(child.position.x-bariX,child.position.y-bariY,child.position.z-bariZ); 
+                child.position = TranformMatrice.RotateZInvercer(child.position, 10*Mathf.Deg2Rad);
+                child.position = new Vector3(child.position.x+bariX,child.position.y+bariY,child.position.z+bariZ);
             }
             
             GetComponent<MouseClick>().ReUpdatePolygone();
@@ -195,12 +325,12 @@ public class Factory : MonoBehaviour
 
     }
     
-    public void SpawnControlPoint(Vector3 pos)
+    public void SpawnControlPoint(Vector3 pos, int importance)
     {
         Debug.Log("Spawn");
         var pts = Instantiate(PtsControl, new Vector3(pos.x,pos.y, pos.z),Quaternion.identity);
         pts.transform.parent = Container.transform;
-        
+        pts.GetComponent<UselessScript>().importance = importance;
         //Points.Add(pts);
         //NewLine();
     }
@@ -210,7 +340,11 @@ public class Factory : MonoBehaviour
         DestroyCurve();
         foreach (Transform child in Container.transform)
         {
-            ToJau.Add(child.transform);
+            for (int i =0; i< child.transform.GetComponent<UselessScript>().importance; i++ )
+            {
+                ToJau.Add(child.transform);
+            }
+            
         }
 
         Castel.Instance.pointDeBase = ToJau;

@@ -25,21 +25,20 @@ public class MouseClick : MonoBehaviour
         {
             if (Factory.Instance.SelectedBezier)
             {
-                for (int i = 1; i <= int.Parse(inputField.text); i++)
+                
+                RaycastHit Hit;
+                //Debug.Log(Input.mousePosition);
+                Vector3 fwd = transform.TransformDirection(Vector3.forward);
+                if (!Physics.Raycast(transform.position, fwd, out Hit, 1000, 5))
                 {
-                    RaycastHit Hit;
-                    //Debug.Log(Input.mousePosition);
-                    Vector3 fwd = transform.TransformDirection(Vector3.forward);
-                    if (!Physics.Raycast(transform.position, fwd, out Hit, 1000, 5))
-                    {
-                        Vector3 mousepos = Input.mousePosition;
-                        mousepos.z += dist;
-                        Vector3 Pos = cam.ScreenToWorldPoint(mousepos);
-                        Factory.Instance.SpawnControlPoint(Pos);
-                    }
-
-                    CreatePolygone();
+                    Vector3 mousepos = Input.mousePosition;
+                    mousepos.z += dist;
+                    Vector3 Pos = cam.ScreenToWorldPoint(mousepos);
+                    Factory.Instance.SpawnControlPoint(Pos, int.Parse(inputField.text) );
                 }
+
+                CreatePolygone();
+                
             }
             else
             {
