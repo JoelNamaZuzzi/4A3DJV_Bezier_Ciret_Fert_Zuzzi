@@ -19,10 +19,14 @@ public class Factory : MonoBehaviour
     public List<Transform> ToJau = new List<Transform>();
     public GameObject SelectedPoint;
     public GameObject SelectedBezier;
+    public List<GameObject> SelectedForRaccordC0 = new List<GameObject>();
     public GameObject JauPointHolder;
     public int CounterBez;
     public GameObject Selectedbtn;
     public GameObject FirstJau;
+
+    Color c1 = Color.white;
+    Color c2 = new Color(1, 1, 1, 0);
 
     void Awake()
     {
@@ -277,8 +281,6 @@ public class Factory : MonoBehaviour
     
     public void NewLine()
     {
-        Color c1 = Color.white;
-        Color c2 = new Color(1, 1, 1, 0);
         GameObject CurJau = FirstJau;
         while (CurJau.GetComponent<JauPts>().nextChild)
         {
@@ -435,5 +437,71 @@ public class Factory : MonoBehaviour
         }
     }
 
-    
+    public void RaccordC0()
+    {
+        if(SelectedForRaccordC0.Count>=2)
+        {
+            Debug.LogWarningFormat(SelectedForRaccordC0[0] + " " + SelectedForRaccordC0[1]);
+
+            int nbPointinBezier1 = SelectedForRaccordC0[0].transform.Find("PtsControle").childCount;
+            GameObject lastPointinBezier1 = SelectedForRaccordC0[0].transform.Find("PtsControle").GetChild(nbPointinBezier1 - 1).gameObject;
+
+            GameObject firstPointinBezier2 = SelectedForRaccordC0[1].transform.Find("PtsControle").GetChild(0).gameObject; ;
+
+            SpawnControlPoint(lastPointinBezier1.transform.position);
+
+            LineRenderer lnrdr = lastPointinBezier1.AddComponent<LineRenderer>();
+            lnrdr.material = new Material(Shader.Find("Sprites/Default"));
+            lnrdr.SetColors(c1, c2);
+            lnrdr.startColor = Color.blue;
+            lnrdr.endColor = Color.blue;
+            lnrdr.startWidth = 0.1f;
+            lnrdr.endWidth = 0.1f;
+            lnrdr.positionCount = 2;
+            lnrdr.useWorldSpace = true;
+            lnrdr.SetPosition(0, lastPointinBezier1.transform.position);
+            lnrdr.SetPosition(1, firstPointinBezier2.transform.position);
+
+
+            Debug.LogWarningFormat(lastPointinBezier1 + " " + firstPointinBezier2);
+        }
+        else
+        {
+            Debug.LogError("Pas assez de bezier");
+        }
+    }
+
+    public void RaccordC1()
+    {
+        if (SelectedForRaccordC0.Count >= 2)
+        {
+            Debug.LogWarningFormat(SelectedForRaccordC0[0] + " " + SelectedForRaccordC0[1]);
+
+            int nbPointinBezier1 = SelectedForRaccordC0[0].transform.Find("PtsJau").childCount;
+            GameObject lastPointinBezier1 = SelectedForRaccordC0[0].transform.Find("PtsJau").GetChild(nbPointinBezier1 - 1).gameObject;
+
+            GameObject firstPointinBezier2 = SelectedForRaccordC0[1].GetComponent<Bez>().FirstJau;
+
+            lastPointinBezier1.GetComponent<JauPts>().nextChild = firstPointinBezier2;
+
+            LineRenderer lnrdr = lastPointinBezier1.AddComponent<LineRenderer>();
+            lnrdr.material = new Material(Shader.Find("Sprites/Default"));
+            lnrdr.SetColors(c1, c2);
+            lnrdr.startColor = Color.blue;
+            lnrdr.endColor = Color.blue;
+            lnrdr.startWidth = 0.1f;
+            lnrdr.endWidth = 0.1f;
+            lnrdr.positionCount = 2;
+            lnrdr.useWorldSpace = true;
+            lnrdr.SetPosition(0, lastPointinBezier1.transform.position);
+            lnrdr.SetPosition(1, firstPointinBezier2.transform.position);
+
+
+            Debug.LogWarningFormat(lastPointinBezier1 + " " + firstPointinBezier2);
+        }
+        else
+        {
+            Debug.LogError("Pas assez de bezier");
+        }
+    }
 }
