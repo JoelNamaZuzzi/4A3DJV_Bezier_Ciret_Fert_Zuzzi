@@ -324,12 +324,12 @@ public class Factory : MonoBehaviour
 
     }
     
-    public void SpawnControlPoint(Vector3 pos)
+    public void SpawnControlPoint(Vector3 pos, int importance)
     {
         Debug.Log("Spawn");
         var pts = Instantiate(PtsControl, new Vector3(pos.x,pos.y, pos.z),Quaternion.identity);
         pts.transform.parent = Container.transform;
-        
+        pts.GetComponent<UselessScript>().importance = importance;
         //Points.Add(pts);
         //NewLine();
     }
@@ -339,7 +339,11 @@ public class Factory : MonoBehaviour
         DestroyCurve();
         foreach (Transform child in Container.transform)
         {
-            ToJau.Add(child.transform);
+            for (int i =0; i< child.transform.GetComponent<UselessScript>().importance; i++ )
+            {
+                ToJau.Add(child.transform);
+            }
+            
         }
 
         Castel.Instance.pointDeBase = ToJau;
