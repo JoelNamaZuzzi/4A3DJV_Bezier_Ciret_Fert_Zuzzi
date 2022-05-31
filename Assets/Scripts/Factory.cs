@@ -14,6 +14,7 @@ public class Factory : MonoBehaviour
     public GameObject PtsControl;
     public GameObject PtsJau;
     public GameObject BezierPrefab;
+    public GameObject HullPrefab;
     public List <GameObject> Points=new List<GameObject>();
     public List<GameObject> Beziers = new List<GameObject>();
     public List<Transform> ToJau = new List<Transform>();
@@ -339,101 +340,98 @@ public class Factory : MonoBehaviour
 
     public void GenerateMesh()
     {
+
         if (SelectedBezier && FirstJau)
         {
-
-            float max_h = -100000;
-            float min_h = 100000;
-            float max_w = -100000;
-            float min_w = 100000;
-            float z = FirstJau.transform.position.z;
-            GameObject MeshHolder = SelectedBezier.transform.Find("Mesh").gameObject;
-            GameObject CurJau = FirstJau;
-
-            while (CurJau)
+            List<GameObject> PtsToHull = new List<GameObject>();
+            foreach (Transform PtsCont in Container.transform)
             {
-                if (CurJau.transform.position.x > max_w)
+                PtsToHull.Add(PtsCont.gameObject);
+                if (PtsCont.Find("Hull"))
                 {
-                    max_w = CurJau.transform.position.x;
+                    Destroy(PtsCont.Find("Hull"));
                 }
-
-                if (CurJau.transform.position.x < min_w)
+            }
+            
+            GameObject StartPTS = lowestX(PtsToHull);
+            List<GameObject> PtsReturn = new List<GameObject>();
+            PtsReturn.Add(StartPTS);
+            GameObject CurPTS = StartPTS;
+            int C = 0;
+            while (true)
+            {
+                //Debug.Log("while");
+                //PtsReturn.Add(CurPTS);
+                GameObject NextTarget = PtsToHull[0];
+                
+                //Debug.Log(PtsToHull.Count);
+                for (int i =0; i<PtsToHull.Count; i++)
                 {
-                    min_w = CurJau.transform.position.x;
+                    
+                    if ((CounterClock(CurPTS.transform.position, NextTarget.transform.position,
+                            PtsToHull[i].transform.position) > 0f))
+                    {
+                        CurPTS = PtsToHull[i];
+                    }
                 }
-
-                if (CurJau.transform.position.y > max_h)
+                PtsReturn.Add(CurPTS);
+                if (CurPTS == PtsReturn[0])
                 {
-                    max_h = CurJau.transform.position.y;
+                    Debug.Log("Debug");
+                    break;
                 }
-
-                if (CurJau.transform.position.y < min_h)
-                {
-                    min_h = CurJau.transform.position.y;
-                }
-
-                CurJau = CurJau.GetComponent<JauPts>().nextChild;
+            }
+            PtsReturn.Add(PtsReturn[0]);
+            List<GameObject> ToHull = new List<GameObject>();
+            int j = 0;
+            foreach (GameObject point in PtsReturn)
+            {
+                GameObject hull = Instantiate(HullPrefab, point.transform.position, point.transform.localRotation);
+                hull.transform.parent = point.transform;
+                hull.name = "hull" + j;
+                ToHull.Add(hull);
+                Debug.Log(hull.name);
+                j++;
             }
 
-            Debug.Log("max w: " + max_w + " min w: " + min_w + " max h: " + max_h + " min h: " + min_h);
-            MeshFilter meshFilter;
-            if (!MeshHolder.GetComponent<MeshRenderer>())
+            /*foreach (GameObject point in ToHull)
             {
-                MeshRenderer meshrdr = MeshHolder.AddComponent<MeshRenderer>();
-                meshrdr.sharedMaterial = new Material(Shader.Find("Standard"));
-                meshFilter = MeshHolder.AddComponent<MeshFilter>();
-            }
-            else
-            {
-                meshFilter = MeshHolder.GetComponent<MeshFilter>();
-            }
-
-            Mesh mesh = new Mesh();
-
-            Vector3[] vertices = new Vector3[4]
-            {
-                new Vector3(min_w, min_h, z),
-                new Vector3(max_w, min_h, z),
-                new Vector3(min_w, max_h, z),
-                new Vector3(max_w, max_h, z)
-            };
-
-            mesh.vertices = vertices;
-
-            int[] tris = new int[6]
-            {
-                // lower left triangle
-                0, 2, 1,
-                // upper right triangle
-                2, 3, 1
-            };
-            mesh.triangles = tris;
-
-            Vector3[] normals = new Vector3[4]
-            {
-                -Vector3.forward,
-                -Vector3.forward,
-                -Vector3.forward,
-                -Vector3.forward
-            };
-            mesh.normals = normals;
-
-            Vector2[] uv = new Vector2[4]
-            {
-                new Vector2(0, 0),
-                new Vector2(1, 0),
-                new Vector2(0, 1),
-                new Vector2(1, 1)
-            };
-            mesh.uv = uv;
-
-            meshFilter.mesh = mesh;
-        }
-        else
-        {
-            Debug.Log("Select Bezier with Generated curve");
+                
+            }*/
+            
         }
     }
 
+    public static float CounterClock(Vector3 p1, Vector3 p2, Vector3 p3)
+    {
+        float x1 = p1.x - p2.x;
+        float x2 = p1.x - p3.x;
+        float y1 = p1.y - p2.y;
+        float y2 = p1.x - p3.y;
+        return (y2*x1)-(y1*x2);
+    }
     
+    public GameObject lowestX(List<GameObject> points)
+    {
+        GameObject pts= points[0];
+        foreach (GameObject point in points)
+        {
+            if (point.transform.position.x < pts.transform.position.x)
+            {
+                pts = point;
+            }
+        }
+
+        foreach (GameObject point in points) 
+        {
+            Transform trf = point.transform;
+            if (point != pts && trf.position.x == pts.transform.position.x && trf.position.y < pts.transform.position.y)
+            {
+                pts = point;
+            }
+        }
+        
+        return pts;
+
+    }
 }

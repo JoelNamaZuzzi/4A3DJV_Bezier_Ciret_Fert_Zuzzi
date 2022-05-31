@@ -1221,6 +1221,7 @@ MonoBehaviour:
   PtsControl: {fileID: 3421270913403553674, guid: 4e86222064a8379428135715f855de0f, type: 3}
   PtsJau: {fileID: 3697332149780691402, guid: 17acf4ec00000a44fb397f9dc57d13b1, type: 3}
   BezierPrefab: {fileID: 5873997813202818199, guid: d5802027ba54c9240baae4ea4b3c9dd6, type: 3}
+  HullPrefab: {fileID: 4361212921468122467, guid: a90376e091a5b564fa3a0e7f440041ec, type: 3}
   Points: []
   Beziers: []
   ToJau: []
@@ -1540,7 +1541,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 0
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
