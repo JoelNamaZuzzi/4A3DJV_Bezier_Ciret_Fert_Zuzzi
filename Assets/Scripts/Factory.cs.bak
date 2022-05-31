@@ -493,30 +493,25 @@ public class Factory : MonoBehaviour
             List<GameObject> PtsReturn = new List<GameObject>();
             PtsReturn.Add(StartPTS);
             GameObject CurPTS = StartPTS;
-            int C = 1;
+            int C = 0;
             while (true)
             {
                 //Debug.Log("while");
                 //PtsReturn.Add(CurPTS);
-                GameObject NextTarget = PtsToHull[C];
+                GameObject NextTarget = PtsToHull[0];
                 
                 //Debug.Log(PtsToHull.Count);
                 for (int i =1; i<PtsToHull.Count; i++)
                 {
-                    if (!PtsToHull[i].Equals(NextTarget))
-                    {
-                        continue;
-                    }
                     
                     if (CounterClock(CurPTS.transform.position, NextTarget.transform.position,
-                            PtsToHull[i].transform.position) < 0f)
+                            PtsToHull[i].transform.position) > 0f)
                     {
-                        CurPTS = PtsToHull[i];
+                        NextTarget = PtsToHull[i];
                     }
                 }
                 PtsReturn.Add(CurPTS);
-                C++;
-                if (CurPTS == PtsReturn[0])
+                if (NextTarget == PtsReturn[0])
                 {
                     Debug.Log("Debug");
                     break;
@@ -527,7 +522,6 @@ public class Factory : MonoBehaviour
             int j = 0;
             foreach (GameObject point in PtsReturn)
             {
-                Debug.Log(point.name);
                 GameObject hull = Instantiate(HullPrefab, point.transform.position, point.transform.localRotation);
                 hull.transform.parent = point.transform;
                 hull.name = "hull" + j;
@@ -555,13 +549,12 @@ public class Factory : MonoBehaviour
 
             GameObject firstPointinBezier2 = SelectedForRaccordC0[1].transform.Find("PtsControle").GetChild(0).gameObject; ;
 
-            //firstPointinBezier2.transform.position = lastPointinBezier1.transform.position;
-            SpawnControlPoint(lastPointinBezier1.transform.position, lastPointinBezier1.GetComponent<UselessScript>().importance);
-
-            int nbPointinBezier2 = SelectedForRaccordC0[1].transform.Find("PtsControle").childCount;
-            GameObject lastPointinBezier2 = SelectedForRaccordC0[1].transform.Find("PtsControle").GetChild(nbPointinBezier2 - 1).gameObject;
-
-            lastPointinBezier2.transform.SetSiblingIndex(0);
+<<<<<<< HEAD
+            firstPointinBezier2.transform.position = lastPointinBezier1.transform.position;
+            //SpawnControlPoint(lastPointinBezier1.transform.position, lastPointinBezier1.GetComponent<UselessScript>().importance);
+=======
+            //SpawnControlPoint(lastPointinBezier1.transform.position);
+>>>>>>> 3946c5564e84158ab59d3f985760005a28c635e0
 
             LineRenderer lnrdr = lastPointinBezier1.AddComponent<LineRenderer>();
             lnrdr.material = new Material(Shader.Find("Sprites/Default"));
