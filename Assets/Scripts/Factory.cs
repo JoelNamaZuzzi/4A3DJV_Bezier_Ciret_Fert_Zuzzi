@@ -557,18 +557,7 @@ public class Factory : MonoBehaviour
 
             lastPointinBezier2.transform.SetSiblingIndex(0);
 
-            LineRenderer lnrdr = lastPointinBezier1.AddComponent<LineRenderer>();
-            lnrdr.material = new Material(Shader.Find("Sprites/Default"));
-            lnrdr.SetColors(c1, c2);
-            lnrdr.startColor = Color.blue;
-            lnrdr.endColor = Color.blue;
-            lnrdr.startWidth = 0.1f;
-            lnrdr.endWidth = 0.1f;
-            lnrdr.positionCount = 2;
-            lnrdr.useWorldSpace = true;
-            lnrdr.SetPosition(0, lastPointinBezier1.transform.position);
-            lnrdr.SetPosition(1, firstPointinBezier2.transform.position);
-
+            GetComponent<MouseClick>().ReUpdatePolygone();
 
             Debug.LogWarningFormat(lastPointinBezier1 + " " + firstPointinBezier2);
         }
@@ -584,24 +573,28 @@ public class Factory : MonoBehaviour
         {
             Debug.LogWarningFormat(SelectedForRaccordC0[0] + " " + SelectedForRaccordC0[1]);
 
-            int nbPointinBezier1 = SelectedForRaccordC0[0].transform.Find("PtsJau").childCount;
-            GameObject lastPointinBezier1 = SelectedForRaccordC0[0].transform.Find("PtsJau").GetChild(nbPointinBezier1 - 1).gameObject;
+            int nbPointinBezier1 = SelectedForRaccordC0[0].transform.Find("PtsControle").childCount;
+            GameObject lastPointinBezier1 = SelectedForRaccordC0[0].transform.Find("PtsControle").GetChild(nbPointinBezier1 - 1).gameObject;
 
-            GameObject firstPointinBezier2 = SelectedForRaccordC0[1].GetComponent<Bez>().FirstJau;
+            GameObject firstPointinBezier2 = SelectedForRaccordC0[1].transform.Find("PtsControle").GetChild(0).gameObject; ;
 
-            lastPointinBezier1.GetComponent<JauPts>().nextChild = firstPointinBezier2;
+            //firstPointinBezier2.transform.position = lastPointinBezier1.transform.position;
+            SpawnControlPoint(lastPointinBezier1.transform.position, lastPointinBezier1.GetComponent<UselessScript>().importance);
 
-            LineRenderer lnrdr = lastPointinBezier1.AddComponent<LineRenderer>();
-            lnrdr.material = new Material(Shader.Find("Sprites/Default"));
-            lnrdr.SetColors(c1, c2);
-            lnrdr.startColor = Color.blue;
-            lnrdr.endColor = Color.blue;
-            lnrdr.startWidth = 0.1f;
-            lnrdr.endWidth = 0.1f;
-            lnrdr.positionCount = 2;
-            lnrdr.useWorldSpace = true;
-            lnrdr.SetPosition(0, lastPointinBezier1.transform.position);
-            lnrdr.SetPosition(1, firstPointinBezier2.transform.position);
+            int nbPointinBezier2 = SelectedForRaccordC0[1].transform.Find("PtsControle").childCount;
+            GameObject lastPointinBezier2 = SelectedForRaccordC0[1].transform.Find("PtsControle").GetChild(nbPointinBezier2 - 1).gameObject;
+
+            lastPointinBezier2.transform.SetSiblingIndex(0);
+
+            GameObject avantdernierPointinBezier1 = SelectedForRaccordC0[0].transform.Find("PtsControle").GetChild(nbPointinBezier1 - 2).gameObject;
+
+            Vector3 newPoint = 2 * lastPointinBezier2.transform.position - avantdernierPointinBezier1.transform.position;
+
+            SpawnControlPoint(newPoint, 1);
+
+            int nbPointinBezier2v2 = SelectedForRaccordC0[1].transform.Find("PtsControle").childCount;
+            GameObject lastPointinBezier2v2 = SelectedForRaccordC0[1].transform.Find("PtsControle").GetChild(nbPointinBezier2v2 - 1).gameObject;
+            lastPointinBezier2v2.transform.SetSiblingIndex(1);
 
 
             Debug.LogWarningFormat(lastPointinBezier1 + " " + firstPointinBezier2);
