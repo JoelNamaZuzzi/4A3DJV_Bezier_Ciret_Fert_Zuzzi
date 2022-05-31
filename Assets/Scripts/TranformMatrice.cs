@@ -8,12 +8,14 @@ public class TranformMatrice : MonoBehaviour
     {
         Matrix4x4 mat = new Matrix4x4();
 
-        mat[1, 1] = Mathf.Cos(angle);
-        mat[1, 2] = -Mathf.Sin(angle);
-        mat[2, 1] = Mathf.Sin(angle);
-        mat[2, 2] = Mathf.Cos(angle);
+        mat[1, 1] = Mathf.Cos(angle);          // 1 
+        mat[1, 2] = -Mathf.Sin(angle);         //     
+        mat[2, 1] = Mathf.Sin(angle);          //
+        mat[2, 2] = Mathf.Cos(angle);          //
 
-        mat[0, 0] = mat[0, 2] = mat[3, 3] = 1;
+        mat[0, 0] = 1;
+        
+        mat[3, 3] = 1;
 
         point = mat.MultiplyPoint(point);
 
@@ -29,7 +31,8 @@ public class TranformMatrice : MonoBehaviour
         mat[2, 1] = Mathf.Sin(angle);
         mat[2, 2] = Mathf.Cos(angle);
 
-        mat[0,0] = mat[0, 2] = mat[3, 3] = 1;
+        mat[0, 0] = 1;
+        mat[3, 3] = 1;
 
         point = mat.inverse.MultiplyPoint(point);
 
@@ -45,7 +48,8 @@ public class TranformMatrice : MonoBehaviour
         mat[2, 0] = -Mathf.Sin(angle);
         mat[2, 2] = Mathf.Cos(angle);
 
-        mat[1, 1] = mat[1, 2] = mat[3, 3] = 1;
+        mat[1, 1] = 1;
+        mat[3, 3] = 1;
 
         point = mat.MultiplyPoint(point);
 
@@ -61,7 +65,8 @@ public class TranformMatrice : MonoBehaviour
         mat[2, 0] = -Mathf.Sin(angle);
         mat[2, 2] = Mathf.Cos(angle);
 
-        mat[1, 1] = mat[1, 2] = mat[3, 3] = 1;
+        mat[1, 1] = 1;
+        mat[3, 3] = 1;
 
         point = mat.inverse.MultiplyPoint(point);
 
