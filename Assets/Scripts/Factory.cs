@@ -493,25 +493,30 @@ public class Factory : MonoBehaviour
             List<GameObject> PtsReturn = new List<GameObject>();
             PtsReturn.Add(StartPTS);
             GameObject CurPTS = StartPTS;
-            int C = 0;
+            int C = 1;
             while (true)
             {
                 //Debug.Log("while");
                 //PtsReturn.Add(CurPTS);
-                GameObject NextTarget = PtsToHull[0];
+                GameObject NextTarget = PtsToHull[C];
                 
                 //Debug.Log(PtsToHull.Count);
                 for (int i =1; i<PtsToHull.Count; i++)
                 {
+                    if (!PtsToHull[i].Equals(NextTarget))
+                    {
+                        continue;
+                    }
                     
                     if (CounterClock(CurPTS.transform.position, NextTarget.transform.position,
-                            PtsToHull[i].transform.position) > 0f)
+                            PtsToHull[i].transform.position) < 0f)
                     {
-                        NextTarget = PtsToHull[i];
+                        CurPTS = PtsToHull[i];
                     }
                 }
                 PtsReturn.Add(CurPTS);
-                if (NextTarget == PtsReturn[0])
+                C++;
+                if (CurPTS == PtsReturn[0])
                 {
                     Debug.Log("Debug");
                     break;
@@ -522,6 +527,7 @@ public class Factory : MonoBehaviour
             int j = 0;
             foreach (GameObject point in PtsReturn)
             {
+                Debug.Log(point.name);
                 GameObject hull = Instantiate(HullPrefab, point.transform.position, point.transform.localRotation);
                 hull.transform.parent = point.transform;
                 hull.name = "hull" + j;
