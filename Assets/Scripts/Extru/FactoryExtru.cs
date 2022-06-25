@@ -51,7 +51,7 @@ public class FactoryExtru : MonoBehaviour
                 child.position = TranformMatrice.Translate(child.position, new Vector3(0,0.1f,0));
             }
             
-            GetComponent<MouseClick>().ReUpdatePolygone();
+            GetComponent<MouseClickExtru>().ReUpdatePolygone();
             ClickGenerate();
         }
         
@@ -62,7 +62,7 @@ public class FactoryExtru : MonoBehaviour
                 child.position = TranformMatrice.Translate(child.position, new Vector3(-0.1f,0,0));
             }
             
-            GetComponent<MouseClick>().ReUpdatePolygone();
+            GetComponent<MouseClickExtru>().ReUpdatePolygone();
             ClickGenerate();
         }
         
@@ -73,7 +73,7 @@ public class FactoryExtru : MonoBehaviour
                 child.position = TranformMatrice.Translate(child.position, new Vector3(0,-0.1f,0));
             }
             
-            GetComponent<MouseClick>().ReUpdatePolygone();
+            GetComponent<MouseClickExtru>().ReUpdatePolygone();
             ClickGenerate();
         }
         
@@ -84,7 +84,7 @@ public class FactoryExtru : MonoBehaviour
                 child.position = TranformMatrice.Translate(child.position, new Vector3(0.1f,0,0));
             }
             
-            GetComponent<MouseClick>().ReUpdatePolygone();
+            GetComponent<MouseClickExtru>().ReUpdatePolygone();
             ClickGenerate();
         }
 
