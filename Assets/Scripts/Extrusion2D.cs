@@ -8,13 +8,17 @@ public class Extrusion2D : MonoBehaviour
     public static Extrusion2D Instance;
     public List<GameObject> SelectedForExtrusion2d = new List<GameObject>();
     [SerializeField] private Dropdown dropdown;
-    
+
     public List<GameObject> AllExtrudePoint = new List<GameObject>();
-    
+    public Vector3[] To2D;
+
     Color c1 = Color.white;
     Color c2 = new Color(1, 1, 1, 0);
-    
-    
+
+    public int countery = 0;
+    public int counterx = 0;
+
+
     void Awake()
     {
         if (Instance == null)
@@ -28,9 +32,9 @@ public class Extrusion2D : MonoBehaviour
         float r = Random.Range(0f, 1f);
         float g = Random.Range(0f, 1f);
         float b = Random.Range(0f, 1f);
-        
+
         Color color = new Color(r, g, b, 1);
-        
+
         //Debug.LogWarningFormat(go.name);
 
         for (int i = 0; i < go.transform.Find("PtsJau").childCount - 1; i++)
@@ -46,10 +50,11 @@ public class Extrusion2D : MonoBehaviour
                 {
                     break;
                 }
-                else {
-                    nextPos = go.transform.Find("PtsJau").GetChild(i + 1).gameObject.transform.position; 
+                else
+                {
+                    nextPos = go.transform.Find("PtsJau").GetChild(i + 1).gameObject.transform.position;
                 }
-                
+
 
                 LineRenderer lnrdr = go.transform.Find("PtsJau").GetChild(i).gameObject.GetComponent<LineRenderer>();
                 lnrdr.startWidth = 0.1f;
@@ -62,57 +67,74 @@ public class Extrusion2D : MonoBehaviour
             }
         }
     }
-    
+
     public void Extrusion2d()
     {
+        foreach (Transform pts in Factory.Instance.JauPointHolder.transform)
+        {
+            AllExtrudePoint.Add(pts.gameObject);
+        }
+
         if (SelectedForExtrusion2d.Count == 1)
         {
             int degree = 0;
-            
+
             if (dropdown.value == 0)
             {
                 degree = 20;
             }
+
             if (dropdown.value == 1)
             {
                 degree = 45;
             }
+
             if (dropdown.value == 2)
             {
                 degree = 60;
             }
+
             if (dropdown.value == 3)
             {
                 degree = 75;
             }
+
             if (dropdown.value == 4)
             {
                 degree = 90;
             }
 
 
-            for (int i = degree; i < 360; i += degree )
+            for (int i = degree; i < 360; i += degree)
             {
-                GameObject BezierCopie = Instantiate(SelectedForExtrusion2d[0], SelectedForExtrusion2d[0].transform.position, Quaternion.identity);
+                GameObject BezierCopie = Instantiate(SelectedForExtrusion2d[0],
+                    SelectedForExtrusion2d[0].transform.position, Quaternion.identity);
                 BezierCopie.name = SelectedForExtrusion2d[0].name + "Extrude" + i;
-
+                counterx += 1;
                 var sin = Mathf.Sin(i * Mathf.Deg2Rad);
                 var cos = Mathf.Cos(i * Mathf.Deg2Rad);
 
                 for (int j = 0; j < BezierCopie.transform.Find("PtsJau").childCount; j++)
                 {
                     Vector3 pos = new Vector3();
-                    
+
                     pos.x = (BezierCopie.transform.Find("PtsJau").GetChild(j).position.x * cos);
                     pos.y = BezierCopie.transform.Find("PtsJau").GetChild(j).position.y;
-                    pos.z = (BezierCopie.transform.Find("PtsJau").GetChild(j).position.x * sin) + SelectedForExtrusion2d[0].transform.Find("PtsJau").GetChild(0).position.z;//GameObject.Find("PtsPivot").transform.position.z)
-                    
+                    pos.z = (BezierCopie.transform.Find("PtsJau").GetChild(j).position.x * sin) +
+                            SelectedForExtrusion2d[0].transform.Find("PtsJau").GetChild(0).position
+                                .z; //GameObject.Find("PtsPivot").transform.position.z)
+
                     BezierCopie.transform.Find("PtsJau").GetChild(j).position = pos;
-                    
-                    AllExtrudePoint.Add(BezierCopie.transform.Find("PtsJau").gameObject);
+
+                    AllExtrudePoint.Add(BezierCopie.transform.Find("PtsJau").GetChild(j).gameObject);
+                    if (j > countery)
+                    {
+                        countery = j;
+                    }
                 }
-                
-                foreach (Transform child in BezierCopie.transform.Find("PtsControle")) {
+
+                foreach (Transform child in BezierCopie.transform.Find("PtsControle"))
+                {
                     Destroy(child.gameObject);
                 }
 
@@ -123,8 +145,26 @@ public class Extrusion2D : MonoBehaviour
                 Factory.Instance.Beziers.Add(BezierCopie);
                 ContentAdd.Instance.CreateBez(BezierCopie);
                 DrawBezierExtrude(BezierCopie);
+
             }
 
+        }
+
+        To2DList();
+    }
+
+    public void To2DList()
+    {
+        //function to sort list
+        counterx += 1;
+        int counter = 0;
+        To2D = new Vector3[(counterx + 1) * (countery + 1)];
+        for (int i = 0; i <= countery; counter++, i++)
+        {
+            for (int j = counter; j < AllExtrudePoint.Count; j += countery)
+            {
+                To2D[j] = AllExtrudePoint[j].transform.position;
+            }
         }
     }
 }

@@ -8,14 +8,14 @@ public class Grid : MonoBehaviour
     public int Xsize;
     public int Ysize;
     public Material mat;
-    private Vector3[] vertices;
+    public Vector3[] vertices;
     private Mesh mesh;
 
     public void Generate()
     {
         GetComponent<MeshFilter>().mesh = mesh = new Mesh();
         mesh.name = "Procedural Grid";
-        vertices = new Vector3[(Xsize + 1) * (Ysize + 1)];
+        //vertices = new Vector3[(Xsize + 1) * (Ysize + 1)];
         Vector2[] uv = new Vector2[vertices.Length];
         Vector4[] tangents = new Vector4[vertices.Length];
         Vector4 tangent = new Vector4(1f, 0f, 0f, -1f);
@@ -23,7 +23,8 @@ public class Grid : MonoBehaviour
         {
             for (int x = 0; x <= Xsize; x++, i++)
             {
-                vertices[i] = new Vector3(x, y);
+                //vertices[i] = new Vector3(x, y);
+                //Debug.Log("gen");
                 uv[i] = new Vector2((float)x / Xsize, (float)y / Ysize);
                 tangents[i] = tangent;
             }

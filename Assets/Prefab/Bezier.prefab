@@ -40,6 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6234880215019599455}
   - component: {fileID: 3946284248452710285}
+  - component: {fileID: -4484455220334997381}
   m_Layer: 0
   m_Name: Bezier
   m_TagString: Untagged
@@ -77,6 +78,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FirstJau: {fileID: 0}
+--- !u!114 &-4484455220334997381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5873997813202818199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58ff093a1eaeb6048b31a8973169525e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Xsize: 0
+  Ysize: 0
+  mat: {fileID: 2100000, guid: 9339e115f19cc4946b2aa0d6651843f6, type: 2}
 --- !u!1 &6717362022838936745
 GameObject:
   m_ObjectHideFlags: 0
