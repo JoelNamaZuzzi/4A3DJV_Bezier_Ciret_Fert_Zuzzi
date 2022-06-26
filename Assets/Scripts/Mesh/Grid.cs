@@ -7,11 +7,11 @@ public class Grid : MonoBehaviour
 {
     public int Xsize;
     public int Ysize;
-
+    public Material mat;
     private Vector3[] vertices;
     private Mesh mesh;
 
-    private void Generate()
+    public void Generate()
     {
         GetComponent<MeshFilter>().mesh = mesh = new Mesh();
         mesh.name = "Procedural Grid";
@@ -44,6 +44,7 @@ public class Grid : MonoBehaviour
 
         mesh.triangles = triangles;
         mesh.RecalculateNormals();
+        GetComponent<MeshRenderer>().material = mat;
     }
 
     private void OnDrawGizmos () {
