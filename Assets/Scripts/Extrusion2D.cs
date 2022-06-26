@@ -104,6 +104,10 @@ public class Extrusion2D : MonoBehaviour
                 degree = 90;
             }
 
+            for (int l = 0; l < SelectedForExtrusion2d[0].transform.Find("PtsJau").childCount; l++)
+            {
+                AllExtrudePoint.Add(SelectedForExtrusion2d[0].transform.Find("PtsJau").GetChild(l).gameObject);
+            }
 
             for (int i = degree; i < 360; i += degree)
             {

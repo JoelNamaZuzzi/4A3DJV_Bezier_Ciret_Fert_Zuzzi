@@ -13,6 +13,8 @@ public class ExtrusionSimple : MonoBehaviour
     public Text valCoefA;
 
     public int baseValue = 1;
+    
+    public List<GameObject> AllExtrudePointSimple = new List<GameObject>();
     // Start is called before the first frame update
     void Start()
     {
@@ -36,7 +38,7 @@ public class ExtrusionSimple : MonoBehaviour
     {
         GameObject selectedbezier = facto.SelectedBezier;
         GameObject Extrude = Instantiate(selectedbezier, selectedbezier.transform.position, Quaternion.identity);
-
+        
         Extrude.name = "ExtrudeSimple" + selectedbezier.name;
         
         SelectBez(Extrude);
@@ -51,11 +53,32 @@ public class ExtrusionSimple : MonoBehaviour
             child.position = TranformMatrice.Translate(child.position, new Vector3(0,hauteur.value,0));
         }
         
-        
-            
         facto.gameObject.GetComponent<MouseClick>().ReUpdatePolygone();
         facto.ClickGenerate();
         
+        SelectBez(selectedbezier);
+        
+        for (int l = 0; l < selectedbezier.transform.Find("PtsJau").childCount; l++)
+        {
+            AllExtrudePointSimple.Add(selectedbezier.transform.Find("PtsJau").GetChild(l).gameObject);
+        }
+        IEnumerator ExecuteAfterTime(float time)
+        {
+            yield return new WaitForSeconds(time);
+ 
+            for (int k = 0; k < Extrude.transform.Find("PtsJau").childCount; k++)
+            {
+                Debug.LogWarningFormat(Extrude.transform.Find("PtsJau").GetChild(k).gameObject.name);
+                if (Extrude.transform.Find("PtsJau").GetChild(k) != null)
+                {
+                    AllExtrudePointSimple.Add(Extrude.transform.Find("PtsJau").GetChild(k).gameObject);
+                }
+            }
+        }
+
+        StartCoroutine(ExecuteAfterTime(10));
+
+
     }
     
     private void SelectBez(GameObject Bezier)
