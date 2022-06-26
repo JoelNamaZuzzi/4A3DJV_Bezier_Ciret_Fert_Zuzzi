@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,7 +18,7 @@ public class Extrusion2D : MonoBehaviour
 
     public int countery = 0;
     public int counterx = 0;
-
+    private GameObject FirstBezslctd;
 
     void Awake()
     {
@@ -70,11 +71,13 @@ public class Extrusion2D : MonoBehaviour
 
     public void Extrusion2d()
     {
-        foreach (Transform pts in Factory.Instance.JauPointHolder.transform)
-        {
-            AllExtrudePoint.Add(pts.gameObject);
-        }
+        FirstBezslctd = Factory.Instance.SelectedBezier;
 
+        foreach (Transform child in Factory.Instance.JauPointHolder.transform)
+        {
+            countery++;
+        }
+        
         if (SelectedForExtrusion2d.Count == 1)
         {
             int degree = 0;
@@ -127,14 +130,14 @@ public class Extrusion2D : MonoBehaviour
                     pos.z = (BezierCopie.transform.Find("PtsJau").GetChild(j).position.x * sin) +
                             SelectedForExtrusion2d[0].transform.Find("PtsJau").GetChild(0).position
                                 .z; //GameObject.Find("PtsPivot").transform.position.z)
-
+                    
                     BezierCopie.transform.Find("PtsJau").GetChild(j).position = pos;
-
+                    
                     AllExtrudePoint.Add(BezierCopie.transform.Find("PtsJau").GetChild(j).gameObject);
-                    if (j > countery)
+                    /*if (j > countery)
                     {
                         countery = j;
-                    }
+                    }*/
                 }
 
                 foreach (Transform child in BezierCopie.transform.Find("PtsControle"))
@@ -159,16 +162,27 @@ public class Extrusion2D : MonoBehaviour
 
     public void To2DList()
     {
-        //function to sort list
-        counterx += 1;
         int counter = 0;
+        int counterbis = 0;
         To2D = new Vector3[(counterx + 1) * (countery + 1)];
-        for (int i = 0; i <= countery; counter++, i++)
+        bool test = false;
+        for (int i = 0,x=0; i <= countery; i++)
         {
-            for (int j = counter; j < AllExtrudePoint.Count; j += countery)
+            x = i;
+            for (int j = 0; j <= counterx; j++ , x+=countery)
             {
-                To2D[j] = AllExtrudePoint[j].transform.position;
+                if (x < AllExtrudePoint.Count)
+                {
+                    To2D[counter] = AllExtrudePoint[x].transform.position;
+                    //Debug.Log(counter);
+                    counter++;
+                }
             }
         }
+
+        FirstBezslctd.GetComponent<Grid>().vertices = To2D;
+        FirstBezslctd.GetComponent<Grid>().Xsize = counterx;
+        FirstBezslctd.GetComponent<Grid>().Ysize = countery;
+        FirstBezslctd.GetComponent<Grid>().Generate();
     }
 }

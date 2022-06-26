@@ -93,7 +93,6 @@ public class Factory : MonoBehaviour
             ClickGenerate();
         }
 
-
         if (Input.GetKey(KeyCode.Keypad8))
         {
 
