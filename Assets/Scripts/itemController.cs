@@ -28,10 +28,12 @@ public class itemController : MonoBehaviour
         if(Check == true)
         {
             Factory.Instance.SelectedForRaccordC0.Add(Bezier);
+            Extrusion2D.Instance.SelectedForExtrusion2d.Add(Bezier);
         }
         if (Check == false)
         {
             Factory.Instance.SelectedForRaccordC0.Remove(Bezier);
+            Extrusion2D.Instance.SelectedForExtrusion2d.Remove(Bezier);
         }
     }
 }

@@ -10,6 +10,7 @@ public class MouseClick : MonoBehaviour
     public float dist=2;
     public GameObject Container;
     public bool Move;
+    public GameObject PtsExtrude;
 
     public Color polygoneColor;
 
@@ -68,6 +69,26 @@ public class MouseClick : MonoBehaviour
             {
                 Factory.Instance.SelectedPoint = null;
             }
+        }
+        else if (Input.GetMouseButtonDown(2))
+        {
+            Debug.LogWarningFormat("inside click");
+            RaycastHit Hit;
+            Vector3 fwd = transform.TransformDirection(Vector3.forward);
+            Vector3 mousepos = Input.mousePosition;
+            mousepos.z += dist;
+            Vector3 Pos = cam.ScreenToWorldPoint(mousepos);
+            if (GameObject.Find("PtsPivot"))
+            {
+                GameObject.Find("PtsPivot").transform.position = Pos;
+            }
+            else
+            {
+                var pts = Instantiate(PtsExtrude, Pos, Quaternion.identity);
+                pts.name = "PtsPivot";
+            }
+            //Debug.Log(Hit.transform);
+
         }
     }
 
