@@ -25,8 +25,12 @@ public class Grid : MonoBehaviour
             {
                 //vertices[i] = new Vector3(x, y);
                 //Debug.Log("gen");
-                uv[i] = new Vector2((float)vertices[i].x / Xsize, (float)vertices[i].y / Ysize);
-                tangents[i] = tangent;
+                if (vertices[i] != new Vector3(0f,0f,0f))
+                {
+                    Debug.Log("tris");
+                    uv[i] = new Vector2((float)vertices[i].x / Xsize, (float)vertices[i].y / Ysize);
+                    tangents[i] = tangent;
+                }
             }
         }
 

@@ -14,6 +14,10 @@ public class ExtrusionSimple : MonoBehaviour
 
     public int baseValue = 1;
     
+    public int counterx=1;
+    public int countery = 0;
+
+    public Vector3[] To2D;
     public List<GameObject> AllExtrudePointSimple = new List<GameObject>();
     // Start is called before the first frame update
     void Start()
@@ -37,6 +41,22 @@ public class ExtrusionSimple : MonoBehaviour
     public void Extrude()
     {
         GameObject selectedbezier = facto.SelectedBezier;
+        int counter = 0;
+        foreach (Transform Child in facto.JauPointHolder.transform)
+        {
+            if(counter>=countery){
+                countery++;
+            }
+
+            if (!AllExtrudePointSimple.Contains(Child.gameObject))
+            {
+                AllExtrudePointSimple.Add(Child.gameObject);
+            }
+
+            counter++;
+        }
+
+        counterx ++;
         GameObject Extrude = Instantiate(selectedbezier, selectedbezier.transform.position, Quaternion.identity);
         
         Extrude.name = "ExtrudeSimple" + selectedbezier.name;
@@ -58,10 +78,10 @@ public class ExtrusionSimple : MonoBehaviour
         
         SelectBez(selectedbezier);
         
-        for (int l = 0; l < selectedbezier.transform.Find("PtsJau").childCount; l++)
+        /*for (int l = 0; l < selectedbezier.transform.Find("PtsJau").childCount; l++)
         {
             AllExtrudePointSimple.Add(selectedbezier.transform.Find("PtsJau").GetChild(l).gameObject);
-        }
+        }*/
         IEnumerator ExecuteAfterTime(float time)
         {
             yield return new WaitForSeconds(time);
@@ -88,5 +108,19 @@ public class ExtrusionSimple : MonoBehaviour
         Factory.Instance.JauPointHolder = Bezier.transform.Find("PtsJau").gameObject;
         Factory.Instance.Selectedbtn = gameObject;
         Factory.Instance.FirstJau = Bezier.GetComponent<Bez>().FirstJau;
+    }
+
+    public void To2DList()
+    {
+        To2D = new Vector3[((counterx+1) * (countery+1))];
+        for (int i = 0; i < AllExtrudePointSimple.Count; i++)
+        {
+            To2D[i] = AllExtrudePointSimple[i].transform.position;
+        }
+
+        facto.SelectedBezier.GetComponent<Grid>().vertices = To2D;
+        facto.SelectedBezier.GetComponent<Grid>().Xsize = counterx;
+        facto.SelectedBezier.GetComponent<Grid>().Ysize = countery;
+        facto.SelectedBezier.GetComponent<Grid>().Generate();
     }
 }

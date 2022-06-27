@@ -640,4 +640,12 @@ public class Factory : MonoBehaviour
         
         return pts;
     }
+
+    public void ChangeMat(Material mat)
+    {
+        if (SelectedBezier.GetComponent<MeshRenderer>().material)
+        {
+            SelectedBezier.GetComponent<MeshRenderer>().material = mat;
+        }
+    }
 }
