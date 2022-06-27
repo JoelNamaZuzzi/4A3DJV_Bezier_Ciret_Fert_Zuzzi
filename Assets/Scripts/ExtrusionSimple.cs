@@ -13,10 +13,6 @@ public class ExtrusionSimple : MonoBehaviour
     public Text valCoefA;
 
     public int baseValue = 1;
-    public int countery=0;
-    public int counterx=0;
-    public Vector3[] To2D;
-    public GameObject FirstSelectBez;
     
     public List<GameObject> AllExtrudePointSimple = new List<GameObject>();
     // Start is called before the first frame update
@@ -40,26 +36,7 @@ public class ExtrusionSimple : MonoBehaviour
 
     public void Extrude()
     {
-        
         GameObject selectedbezier = facto.SelectedBezier;
-        FirstSelectBez = selectedbezier;
-        int count = 0;
-        foreach (Transform Child in facto.JauPointHolder.transform)
-        {
-            count++;
-            if (count > countery)
-            {
-                countery++;
-            }
-
-            if (!AllExtrudePointSimple.Contains(Child.gameObject))
-            {
-                AllExtrudePointSimple.Add(Child.gameObject);
-            }
-        }
-
-        counterx += 1;
-
         GameObject Extrude = Instantiate(selectedbezier, selectedbezier.transform.position, Quaternion.identity);
         
         Extrude.name = "ExtrudeSimple" + selectedbezier.name;
@@ -111,18 +88,5 @@ public class ExtrusionSimple : MonoBehaviour
         Factory.Instance.JauPointHolder = Bezier.transform.Find("PtsJau").gameObject;
         Factory.Instance.Selectedbtn = gameObject;
         Factory.Instance.FirstJau = Bezier.GetComponent<Bez>().FirstJau;
-    }
-
-    public void To2dList()
-    {
-        To2D = new Vector3[((counterx + 1) * (countery + 1))];
-        for (int i = 0; i < AllExtrudePointSimple.Count; i++)
-        {
-            To2D[i] = AllExtrudePointSimple[i].transform.position;
-        }
-        FirstSelectBez.GetComponent<Grid>().vertices = To2D;
-        FirstSelectBez.GetComponent<Grid>().Xsize = counterx;
-        FirstSelectBez.GetComponent<Grid>().Ysize = countery;
-        FirstSelectBez.GetComponent<Grid>().Generate();
     }
 }
