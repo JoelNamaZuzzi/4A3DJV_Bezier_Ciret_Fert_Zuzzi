@@ -93,6 +93,7 @@ public class ExtrusionSimple : MonoBehaviour
                 {
                     AllExtrudePointSimple.Add(Extrude.transform.Find("PtsJau").GetChild(k).gameObject);
                 }
+                Debug.Log(AllExtrudePointSimple.Count);
             }
         }
 
