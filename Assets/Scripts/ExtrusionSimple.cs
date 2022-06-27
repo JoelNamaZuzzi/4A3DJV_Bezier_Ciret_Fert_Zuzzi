@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;  
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -113,15 +115,32 @@ public class ExtrusionSimple : MonoBehaviour
 
     public void To2DList()
     {
-        To2D = new Vector3[((counterx+1) * (countery+1))];
+        /*To2D = new Vector3[((counterx+1) * (countery+1))];
         for (int i = 0; i < AllExtrudePointSimple.Count; i++)
         {
             To2D[i] = AllExtrudePointSimple[i].transform.position;
+        }*/
+        int counter = 0;
+        To2D = new Vector3[(counterx + 1) * (countery + 1)];
+        for (int i = 0,x=0; i <= countery; i++)
+        {
+            x = i;
+            for (int j = 0; j <= counterx; j++ , x+=countery)
+            {
+                if (x < AllExtrudePointSimple.Count)
+                {
+                    To2D[counter] = AllExtrudePointSimple[x].transform.position;
+                    //Debug.Log(counter);
+                    counter++;
+                }
+            }
         }
 
+        Array.Resize(ref To2D, To2D.Length-2);
         facto.SelectedBezier.GetComponent<Grid>().vertices = To2D;
         facto.SelectedBezier.GetComponent<Grid>().Xsize = counterx;
-        facto.SelectedBezier.GetComponent<Grid>().Ysize = countery;
+        facto.SelectedBezier.GetComponent<Grid>().Ysize = countery-1;
+        
         facto.SelectedBezier.GetComponent<Grid>().Generate();
     }
 }

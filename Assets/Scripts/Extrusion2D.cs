@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,9 +31,9 @@ public class Extrusion2D : MonoBehaviour
 
     public void DrawBezierExtrude(GameObject go)
     {
-        float r = Random.Range(0f, 1f);
-        float g = Random.Range(0f, 1f);
-        float b = Random.Range(0f, 1f);
+        float r = UnityEngine.Random.Range(0f, 1f);
+        float g = UnityEngine.Random.Range(0f, 1f);
+        float b = UnityEngine.Random.Range(0f, 1f);
 
         Color color = new Color(r, g, b, 1);
 
@@ -163,9 +164,7 @@ public class Extrusion2D : MonoBehaviour
     public void To2DList()
     {
         int counter = 0;
-        int counterbis = 0;
         To2D = new Vector3[(counterx + 1) * (countery + 1)];
-        bool test = false;
         for (int i = 0,x=0; i <= countery; i++)
         {
             x = i;
@@ -179,7 +178,7 @@ public class Extrusion2D : MonoBehaviour
                 }
             }
         }
-
+        //Array.Resize(ref To2D, To2D.Length-1);
         FirstBezslctd.GetComponent<Grid>().vertices = To2D;
         FirstBezslctd.GetComponent<Grid>().Xsize = counterx;
         FirstBezslctd.GetComponent<Grid>().Ysize = countery;
