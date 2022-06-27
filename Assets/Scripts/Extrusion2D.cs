@@ -178,10 +178,10 @@ public class Extrusion2D : MonoBehaviour
                 }
             }
         }
-        //Array.Resize(ref To2D, To2D.Length-1);
+        Array.Resize(ref To2D, To2D.Length-1);
         FirstBezslctd.GetComponent<Grid>().vertices = To2D;
         FirstBezslctd.GetComponent<Grid>().Xsize = counterx;
-        FirstBezslctd.GetComponent<Grid>().Ysize = countery;
+        FirstBezslctd.GetComponent<Grid>().Ysize = countery-1;
         FirstBezslctd.GetComponent<Grid>().Generate();
     }
 }
